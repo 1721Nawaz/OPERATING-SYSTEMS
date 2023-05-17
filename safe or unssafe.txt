@@ -1,22 +1,4 @@
-Skip to content
-Sign up
-Vasanth11022003
-/
-Operating-System-CSA0417
-Public
-Code
-Issues
-Pull requests
-Actions
-Projects
-Security
-Insights
-Operating-System-CSA0417/1.safe or unsafe state.c
-@Vasanth11022003
-Vasanth11022003 Rename safe or unsafe state.c to 1.safe or unsafe state.c
- History
- 1 contributor
-78 lines (72 sloc)  1.86 KB
+
 #include <stdio.h>  
 int main()  
 {  
@@ -95,18 +77,3 @@ int main()
     }  
     return (0);  
 }  
-Footer
-© 2023 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-Operating-System-CSA0417/1.safe or unsafe state.c at main · Vasanth11022003/Operating-System-CSA0417 · GitHub
