@@ -1,0 +1,84 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+#define MAX_STACK_SIZE 100
+
+typedef struct {
+    int top;
+    char items[MAX_STACK_SIZE];
+} Stack;
+
+void push(Stack *s, char c) {
+    if (s->top == MAX_STACK_SIZE - 1) {
+        printf("Stack overflow\n");
+        exit(1);
+    }
+    s->top++;
+    s->items[s->top] = c;
+}
+
+char pop(Stack *s) {
+    if (s->top == -1) {
+        printf("Stack underflow\n");
+        exit(1);
+    }
+    char c = s->items[s->top];
+    s->top--;
+    return c;
+}
+
+int is_operator(char c) {
+    return (c == '+' || c == '-' || c == '*' || c == '/');
+}
+
+int precedence(char c) {
+    if (c == '+' || c == '-') {
+        return 1;
+    } else if (c == '*' || c == '/') {
+        return 2;
+    } else {
+        return 0;
+    }
+}
+
+void infix_to_postfix(char *infix, char *postfix) {
+    Stack s;
+    s.top = -1;
+    char c;
+    int i, j;
+    for (i = 0, j = 0; infix[i] != '\0'; i++) {
+        if (isalnum(infix[i])) {
+            postfix[j] = infix[i];
+            j++;
+        } else if (is_operator(infix[i])) {
+            while (s.top != -1 && precedence(s.items[s.top]) >= precedence(infix[i])) {
+                postfix[j] = pop(&s);
+                j++;
+            }
+            push(&s, infix[i]);
+        } else if (infix[i] == '(') {
+            push(&s, infix[i]);
+        } else if (infix[i] == ')') {
+            while ((c = pop(&s)) != '(') {
+                postfix[j] = c;
+                j++;
+            }
+        }
+    }
+    while (s.top != -1) {
+        postfix[j] = pop(&s);
+        j++;
+    }
+    postfix[j] = '\0';
+}
+
+int main() {
+    char infix[100];
+    char postfix[100];
+    printf("Enter infix expression: ");
+    scanf("%s", infix);
+    infix_to_postfix(infix, postfix);
+    printf("Postfix expression: %s\n", postfix);
+    return 0;
+}
